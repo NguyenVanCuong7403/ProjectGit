@@ -1,0 +1,69 @@
+﻿<Window x:Class="Project.AnswerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project"
+        mc:Ignorable="d"
+        Title="AnswerWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Window.Resources>
+        <local:AnswerExistsConverter x:Key="AnswerExistsConverter" />
+    </Window.Resources>
+    <Grid>
+           
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+
+            <Grid Grid.Column="0">
+                <StackPanel Margin="5">
+                    <TextBlock FontSize="20" Foreground="Red" Name="txtTotal"></TextBlock>
+                    <TextBlock Name="txtStudent"></TextBlock>
+
+                    <Label>Question</Label>
+                    <TextBlock Text="{Binding Question,Mode=OneWay}" Height="50" DataContext="{Binding ElementName=lvList, Path=SelectedItem}" Name="txtQuestion"></TextBlock>
+
+                    <Label>Answer</Label>
+                    <TextBox Text="{Binding Answer,Mode=OneWay}" Height="50" DataContext="{Binding ElementName=lvList, Path=SelectedItem}" Name="txtAnswer"></TextBox>
+                </StackPanel>
+            </Grid>
+
+
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <WrapPanel HorizontalAlignment="Center" Height="auto">
+                <Button Content="Answer" Width="70" Margin="5" Click="Button_Click_Update"></Button>
+                <Button Content="Update" Width="70" Margin="5"  Click="Button_Click_Update"></Button>
+                <Button Content="Logout" Width="70" Margin="5" Click="Button_Click" ></Button>
+
+
+            </WrapPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <ListView  Name="lvList" SelectionChanged="lvList_SelectionChanged" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                        <GridViewColumn Header="Student" DisplayMemberBinding="{Binding Student.DisplayName}"></GridViewColumn>
+
+                        <GridViewColumn Header="Question" DisplayMemberBinding="{Binding Question}"></GridViewColumn>
+                        <GridViewColumn Header="Answer">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Answer, Converter={StaticResource AnswerExistsConverter}}" IsEnabled="False" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

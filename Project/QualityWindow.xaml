@@ -1,0 +1,54 @@
+﻿<Window x:Class="Project.QualityWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="QualityWindow" Height="450" Width="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+
+            <Grid>
+                <StackPanel Margin="100 0">
+                    <Label>Id</Label>
+                    <TextBox Text="{Binding Id,Mode=OneWay}" DataContext="{Binding ElementName=lvList, Path=SelectedItem}" Name="txtId"></TextBox>
+
+                    <Label>Atribute Quality</Label>
+                    <TextBox Name="txtDisplayName" Text="{Binding DisplayName,Mode=OneWay}" DataContext="{Binding ElementName=lvList, Path=SelectedItem}"></TextBox>
+
+                    
+
+                </StackPanel>
+            </Grid>
+
+
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <WrapPanel HorizontalAlignment="Center" Height="auto">
+                <Button Content="Add" Width="70" Margin="5" Click="Button_Click_Add"></Button>
+                <Button Content="Update" Width="70" Margin="5" Click="Button_Click" ></Button>
+                <Button Content="Remove" Width="70" Margin="5" Click="Button_Click_1"></Button>
+            </WrapPanel>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <ListView Name="lvList">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                        <GridViewColumn Header="Display Name" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>
